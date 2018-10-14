@@ -14,10 +14,15 @@ import java.nio.charset.Charset;
 public class FirstClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        for (int i = 0; i < 1000; i++) {
-            ByteBuf buffer = getByteBuf(ctx);
-            ctx.channel().writeAndFlush(buffer);
-        }
+        ByteBuf buffer = getByteBuf(ctx);
+        ctx.channel().writeAndFlush(buffer);
+
+    }
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ByteBuf buffer = getByteBuf(ctx);
+        ctx.channel().writeAndFlush(buffer);
     }
 
     private ByteBuf getByteBuf(ChannelHandlerContext ctx) {
